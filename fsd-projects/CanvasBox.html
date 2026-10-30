@@ -6,14 +6,41 @@
 </head>
 
 <body>
-  <canvas id="myCanvas" width="2000" height="2000"></canvas>
-  I cant move on baby doll
+  <canvas id="myCanvas" width="2000" height="2000" style="border: 1px dashed"></canvas>
 </body>
 
 </html>
 <script>
   var c = document.getElementById("myCanvas");
   var ctx = c.getContext("2d");
-  var x = 5
-  ctx.fillRect(x, 234, 50, 50)
+  var x = [5, 54, 67, 23, 567, 234, 67, 23, 78, 34, 54]
+  var y = [5, 546, 78, 237, 347, 254, 798, 34, 219, 216]
+  var x_direction = [-2, 2, -2, 2, -2, 2, -2, 2, -2, 2]
+  var y_direction = [2, -2, 2, -2, 2, -2, 2, -2, 2, -2]
+  setInterval(update, 7)
+
+  //makes the box bounce
+  function update() {
+    ctx.clearRect(0, 0, 2000, 2000)
+
+    for (let i = 0; i < x.length; i = i + 1) {
+      ctx.fillRect(x[i], y[i], 50, 50)
+      x[i] = x[i] + x_direction[i]
+      y[i] = y[i] + y_direction[i]
+      if (x[i] < 0) {
+        x_direction[i] = -x_direction[i]
+      }
+      else if (x[i] > 1950) {
+        x_direction[i] = -x_direction[i]
+      }
+      if (y[i] < 0) {
+        y_direction[i] = -y_direction[i]
+      }
+      else if (y[i] > 1950) {
+        y_direction[i] = -y_direction[i]
+      }
+    }
+
+    //change direction if the box is less than or greater than the x or y
+  }
 </script>
