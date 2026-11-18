@@ -6,6 +6,7 @@
 </head>
 
 <body>
+  <h1>Zoom out (if you want idc)</h1>
   <canvas id="myCanvas" width="2000" height="2000" style="border: 1px dashed"></canvas>
 </body>
 
@@ -19,10 +20,15 @@
   var y_direction = [2, -2, 2, -2, 2, -2, 2, -2, 2, -2]
   setInterval(update, 7)
 
+  for (let i = 0; i < 1000; i = i + 1) {
+    x.push(i + 1)
+    y.push(i + 1)
+    x_direction.push(Math.random() * 4 - 2)
+    y_direction.push(Math.random() * 4 - 2)
+  }
   //makes the box bounce
   function update() {
     ctx.clearRect(0, 0, 2000, 2000)
-
     for (let i = 0; i < x.length; i = i + 1) {
       ctx.fillRect(x[i], y[i], 50, 50)
       x[i] = x[i] + x_direction[i]

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dino Game</title>
+</head>
+
+<body>
+  <canvas id="canvas" width="1920" height="800"></canvas>
+  <h1 id = message hidden>Game Over!</h1>
+  <img hidden id="tree"
+    src="https://static.vecteezy.com/system/resources/thumbnails/059/656/163/small/green-tree-nature-white-background-on-transparent-background-png.png">
+  <img hidden id="dog"
+    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSmV5HJmRRyDYV0GVIJTzCBKCEhVxoWpQSraeE54otWzu9I4_8On8coUFY:https://media.tenor.com/ejD7BRIQIQoAAAAe/smirking-dog.png&s=10">
+  <img hidden id="rock"
+    src="https://png.pngtree.com/png-vector/20231019/ourmid/pngtree-close-up-of-big-stone-isolated-big-rock-png-image_10211347.png">
+</body>
+
+</html>
+<script>
+  let c = document.getElementById("canvas");
+  let ctx = c.getContext("2d");
+  let Tree = document.getElementById("tree");
+  let Dog = document.getElementById("dog");
+  let Rock = document.getElementById("rock");
+  let Character_y = 600;
+  let y_speed = 0
+  let gravity = .035
+  let Object_x = 1920;
+  let tree_x = 2000
+  let can_jump = true
+  let object_speed = 7
+  let tree_speed = 4
+  let message = document.getElementById("message")
+  let tree = document.getElementById("tree")
+  setInterval(update, 10);
+  ctx.drawImage(Tree, 10, 10);
+  document.addEventListener("keydown", jump);
+
+  function jump() {
+    if (can_jump === true) {
+      y_speed = -4
+      can_jump = false
+    }
+  }
+
+  //if objecdts collide the game ends
+  function update() {
+    ctx.clearRect(0, 0, 1920, 1080);
+    ctx.drawImage(tree, tree_x, 350, 500, 500)
+    ctx.drawImage(Dog, 50, Character_y, 200, 200);
+    ctx.drawImage(Rock, Object_x, 600, 225, 225);
+    y_speed = y_speed + gravity
+    Character_y = Character_y + y_speed
+    Object_x = Object_x - object_speed
+    tree_x = tree_x - tree_speed
+
+    if (Character_y > 600) {
+      y_speed = 0
+      Character_y = 600
+      can_jump = true
+    }
+    if (50 < Object_x + 10) {
+      if (50 > Object_x - 10) {
+        if (Character_y >= 600) {
+          can_jump = false
+          y_speed = 0
+          object_speed = 0
+          tree_speed = 0
+          message.style.display = "block";
+        }
+      }
+    }
+    if (Object_x < -300){
+      Object_x = 1920
+    }
+    else if (tree_x < -500){
+      tree_x = 3000
+    }
+  }
+</script>
